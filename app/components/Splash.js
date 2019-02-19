@@ -66,7 +66,7 @@ class Splash extends React.Component {
     Animated.parallel([
       createAnimation(this.animatedValueSky, 800, Easing.ease),
       createAnimation(this.animatedValueHill, 800, Easing.ease),
-      createAnimation(this.animatedValueHouse, 1000, Easing.linear, 650),
+      createAnimation(this.animatedValueHouse, 1000, Easing.linear, 800),
       createAnimation(this.animatedValueLogo, 4000, Easing.ease, 2100),
       createAnimation(this.animatedValueSun, 2000, Easing.ease, 2300),
       createAnimation(this.animatedValueMoon, 2000, Easing.ease, 4300),
@@ -84,7 +84,7 @@ class Splash extends React.Component {
     //this is for background images
     const posSky = this.animatedValueSky.interpolate({
       inputRange: [0, 1],
-      outputRange: [this.height, this.height * 0.09]
+      outputRange: [this.height, this.height * 0.2]
     });
 
     const posHill = this.animatedValueHill.interpolate({
@@ -176,32 +176,32 @@ class Splash extends React.Component {
             zIndex: 0,
             resizeMode: 'cover'
           }}
-          source={require('../assets/splash/bg.png')}
+          source={require('../assets/splash/splashbg.png')}
         />
         {/* house */}
         <Animated.Image
           style={{
             width: this.width + 2,
-            height: this.height * 0.12,
-            top: this.height * 0.78,
+            height: this.height * 0.14,
+            top: this.height * 0.715,
             zIndex: 1,
             position: 'absolute',
             marginLeft: houseLeft,
             resizeMode: 'stretch'
           }}
-          source={require('../assets/splash/houses.png')}
+          source={require('../assets/splash/house.png')}
         />
         {/* hills */}
         <Animated.Image
           style={{
             width: this.width,
-            height: this.height * 0.15,
+            height: this.height * 0.21,
             bottom: posHill,
             zIndex: 2,
             position: 'absolute',
-            resizeMode: 'cover'
+            resizeMode: 'stretch'
           }}
-          source={require('../assets/splash/gmountain.png')}
+          source={require('../assets/splash/groundbg.png')}
         />
         <LottieView 
           source={require('./final.json')}
@@ -314,11 +314,12 @@ class Splash extends React.Component {
         />
         <Animated.View
           style={{
-            zIndex: 1,
+            zIndex: 2,
             position: 'absolute',
             opacity: showButton,
-            top: this.height * 0.55,
-            marginLeft: this.width * 0.35
+            top: this.height * 0.8,
+            marginLeft: this.width * 0.35,
+            alignSelf: 'center'
           }}
         >
           <TouchableOpacity
@@ -327,8 +328,8 @@ class Splash extends React.Component {
           >
             <Image
               style={{
-                width: this.width * 0.3,
-                height: this.height * 0.1,
+                width: this.width * 0.45,
+                height: this.height * 0.2,
                 resizeMode: 'contain'
               }}
               source={require('../assets/splash/start.png')}

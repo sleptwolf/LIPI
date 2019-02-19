@@ -6,22 +6,34 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Image
+  Image,
+  Animated,
+  Easing
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from './Header';
-
+import LottieView from 'lottie-react-native';
 const { width, height } = Dimensions.get('window');
 
 class Numbers extends Component {
   constructor() {
     super();
+    this.animatedValue = new Animated.Value(0);
     this.state = {
       sizeL: 22,
       sizeH: 50,
       pressed: null,
       color: 'white'
     };
+  }
+
+  show() {
+    this.animatedValue.setValue(0);
+    Animated.timing(this.animatedValue, {
+      toValue: 1,
+      duration: 1500,
+      easing: Easing.ease
+    }).start();
   }
 
   static navigationOptions = {
@@ -51,6 +63,10 @@ class Numbers extends Component {
       back,
       home
     } = styles;
+    const showAnim = this.animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1]
+    });
     return (
       <ImageBackground
         source={require('../assets/bg/nightbg.png')}
@@ -61,7 +77,11 @@ class Numbers extends Component {
           top: -1,
           left: -1
         }}
-        imageStyle={{ resizeMode: 'stretch', width: width + 2, height: height + 2 }}
+        imageStyle={{
+          resizeMode: 'stretch',
+          width: width + 2,
+          height: height + 2
+        }}
       >
         <Header
           onPressHome={() => this.props.navigation.navigate('ChoicePage')}
@@ -100,7 +120,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 1 ? this.state.sizeH : this.state.sizeL
                 }
-                color='#7C4DFF'
+                color='green'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
@@ -119,7 +139,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 3 ? this.state.sizeH : this.state.sizeL
                 }
-                color='green'
+                color='#7B1FA2'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
@@ -138,7 +158,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 5 ? this.state.sizeH : this.state.sizeL
                 }
-                color='brown'
+                color='red'
               />
             </View>
             {/* view for 1 ,3, 5 */}
@@ -169,7 +189,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 2 ? this.state.sizeH : this.state.sizeL
                 }
-                color='yellow'
+                color='teal'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
@@ -188,7 +208,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 4 ? this.state.sizeH : this.state.sizeL
                 }
-                color='orange'
+                color='indigo'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
@@ -221,7 +241,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 6 ? this.state.sizeH : this.state.sizeL
                 }
-                color='pink'
+                color='brown'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
@@ -240,7 +260,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 7 ? this.state.sizeH : this.state.sizeL
                 }
-                color='white'
+                color='orange'
               />
             </View>
           </View>
@@ -271,7 +291,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 8 ? this.state.sizeH : this.state.sizeL
                 }
-                color='blue'
+                color='#eacb67'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
@@ -287,7 +307,20 @@ class Numbers extends Component {
             }}
           >
             {/* for 9 */}
-            <View style={{ height: 60, width: 60 }} />
+            <View
+              style={{
+                height: 90,
+                width: 90,
+                backgroundColor: 'white',
+                borderRadius: 50,
+                left: -25,
+                top: 15,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <LottieView source={require('./2.json')} progress={showAnim} />
+            </View>
             <View style={{ height: 60, width: 60 }} />
             <View style={{ height: 60, width: 60 }} />
             <View style={{ height: 60, width: 60 }} />
@@ -306,7 +339,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 9 ? this.state.sizeH : this.state.sizeL
                 }
-                color='cyan'
+                color='pink'
               />
             </View>
           </View>
@@ -352,7 +385,10 @@ class Numbers extends Component {
               }}
             >
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 0, color: '#7B1FA2' })}
+                onPress={() => {
+                  this.setState({ pressed: 0, color: '#4CAF50' });
+                  this.show();
+                }}
               >
                 <View style={number0}>
                   <Text style={text}>0</Text>
@@ -360,7 +396,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 1, color: '#7C4DFF' })}
+                onPress={() => {
+                  this.setState({ pressed: 1, color: 'green' });
+                  this.show();
+                }}
               >
                 <View style={number1}>
                   <Text style={text}> १</Text>
@@ -368,7 +407,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 2, color: '#00796B' })}
+                onPress={() => {
+                  this.setState({ pressed: 2, color: 'teal' });
+                  this.show();
+                }}
               >
                 <View style={number2}>
                   <Text style={text}>२</Text>
@@ -376,7 +418,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 3, color: '#1976D2' })}
+                onPress={() => {
+                  this.setState({ pressed: 3, color: '#7B1FA2' });
+                  this.show();
+                }}
               >
                 <View style={number3}>
                   <Text style={text}>३</Text>
@@ -384,7 +429,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 4, color: '#4CAF50' })}
+                onPress={() => {
+                  this.setState({ pressed: 4, color: 'indigo' });
+                  this.show();
+                }}
               >
                 <View style={number4}>
                   <Text style={text}>४</Text>
@@ -400,7 +448,10 @@ class Numbers extends Component {
               }}
             >
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 5, color: '#E64A19' })}
+                onPress={() => {
+                  this.setState({ pressed: 5, color: 'red' });
+                  this.show();
+                }}
               >
                 <View style={number5}>
                   <Text style={text}>५</Text>
@@ -408,7 +459,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 6, color: '#795548' })}
+                onPress={() => {
+                  this.setState({ pressed: 6, color: 'brown' });
+                  this.show();
+                }}
               >
                 <View style={number6}>
                   <Text style={text}>६</Text>
@@ -416,7 +470,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 7, color: '#F57C00' })}
+                onPress={() => {
+                  this.setState({ pressed: 7, color: '#F57C00' });
+                  this.show();
+                }}
               >
                 <View style={number7}>
                   <Text style={text}>७</Text>
@@ -424,7 +481,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 8, color: '#00BCD4' })}
+                onPress={() => {
+                  this.setState({ pressed: 8, color: '#eacb67' });
+                  this.show();
+                }}
               >
                 <View style={number8}>
                   <Text style={text}>८</Text>
@@ -432,7 +492,10 @@ class Numbers extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => this.setState({ pressed: 9, color: '#FFC107' })}
+                onPress={() => {
+                  this.setState({ pressed: 9, color: 'pink' });
+                  this.show();
+                }}
               >
                 <View style={number9}>
                   <Text style={text}>९</Text>
@@ -466,7 +529,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#7B1FA2',
+    backgroundColor: '#4CAF50',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -475,7 +538,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#7C4DFF',
+    backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -484,7 +547,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#00796B',
+    backgroundColor: 'teal',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -493,7 +556,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#1976D2',
+    backgroundColor: '#7B1FA2',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -502,7 +565,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'indigo',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -511,7 +574,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#E64A19',
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -520,7 +583,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#795548',
+    backgroundColor: 'brown',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -529,7 +592,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#F57C00',
+    backgroundColor: 'orange',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -538,7 +601,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#00BCD4',
+    backgroundColor: '#eacb67',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -547,7 +610,7 @@ const styles = {
     height: height * 0.09,
     margin: 5,
     borderRadius: 30,
-    backgroundColor: '#FFC107',
+    backgroundColor: 'pink',
     justifyContent: 'center',
     alignItems: 'center'
   },

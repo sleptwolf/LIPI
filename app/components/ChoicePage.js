@@ -84,7 +84,7 @@ class ChoicePage extends React.Component {
           source={require('../assets/bg/learnbg.png')}
           style={bg}
           imageStyle={{
-            width: width + 2,
+            width: width + 4,
             height: height + 2,
             resizeMode: 'stretch'
           }}
@@ -101,78 +101,99 @@ class ChoicePage extends React.Component {
                   width: width * 0.45,
                   height: height * 0.2,
                   resizeMode: 'contain',
-                  marginTop: 70
+                  marginTop: 70,
+                  // opacity: 0.2
                 }}
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'row', height: '20%', padding: 30 }}>
-            <Animated.Image
-              source={require('../assets/char/C3.png')}
-              style={{
-                height: 50,
-                width: 50,
-                transform: [{ rotate: rotate }],
-                resizeMode: 'contain',
-                top: jump,
-                left
-              }}
-            />
-            <Animated.Image
-              source={require('../assets/char/C2.png')}
-              style={{
-                height: 50,
-                width: 50,
-                transform: [{ rotate: rotate }],
-                resizeMode: 'contain',
-                top: jump,
-                left
-              }}
-            />
-            <Animated.Image
-              source={require('../assets/char/C6.png')}
-              style={{
-                height: 50,
-                width: 50,
-                transform: [{ rotate: rotate }],
-                resizeMode: 'contain',
-                top: jump,
-                left
-              }}
-            />
-            <Animated.Image
-              source={require('../assets/char/C5.png')}
-              style={{
-                height: 50,
-                width: 50,
-                transform: [{ rotate: rotate }],
-                resizeMode: 'contain',
-                top: jump,
-                left
-              }}
-            />
-            <Animated.Image
-              source={require('../assets/char/C4.png')}
-              style={{
-                height: 50,
-                width: 50,
-                transform: [{ rotate: rotate }],
-                resizeMode: 'contain',
-                top: jump,
-                left
-              }}
-            />
-            <Animated.Image
-              source={require('../assets/char/C1.png')}
-              style={{
-                height: 50,
-                width: 50,
-                transform: [{ rotate: rotate }],
-                resizeMode: 'contain',
-                top: jump,
-                left
-              }}
-            />
+          <View
+            style={{
+              flexDirection: 'row',
+              height: '20%',
+              paddingVertical: 30,
+              justifyContent: 'space-between',
+              width: '98%'
+            }}
+          >
+            <View style={{ height: 50, width: 50, marginTop: 10, left: 20 }}>
+              <Animated.Image
+                source={require('../assets/char/C3.png')}
+                style={{
+                  height: 50,
+                  width: 50,
+                  transform: [{ rotate: rotate }],
+                  resizeMode: 'contain',
+                  top: jump,
+                  left
+                }}
+              />
+            </View>
+            <View style={{ height: 50, width: 50, left: 0 }}>
+              <Animated.Image
+                source={require('../assets/char/C2.png')}
+                style={{
+                  height: 50,
+                  width: 50,
+                  transform: [{ rotate: rotate }],
+                  resizeMode: 'contain',
+                  top: jump,
+                  left
+                }}
+              />
+            </View>
+            <View style={{ height: 50, width: 50, marginTop: -5, left: -5 }}>
+              <Animated.Image
+                source={require('../assets/char/C6.png')}
+                style={{
+                  height: 50,
+                  width: 50,
+                  transform: [{ rotate: rotate }],
+                  resizeMode: 'contain',
+                  top: jump,
+                  left
+                }}
+              />
+            </View>
+            <View style={{ height: 50, width: 50, marginTop: -5 }}>
+              <Animated.Image
+                source={require('../assets/char/C5.png')}
+                style={{
+                  height: 50,
+                  width: 50,
+                  transform: [{ rotate: rotate }],
+                  resizeMode: 'contain',
+                  top: jump,
+                  left
+                }}
+              />
+            </View>
+            <View style={{ height: 50, width: 50 }}>
+              <Animated.Image
+                source={require('../assets/char/C4.png')}
+                style={{
+                  height: 50,
+                  width: 50,
+                  transform: [{ rotate: rotate }],
+                  resizeMode: 'contain',
+                  top: jump,
+                  left
+                }}
+              />
+            </View>
+            <View style={{ height: 50, width: 50, marginTop: 10, left: -5 }}>
+              <Animated.Image
+                source={require('../assets/char/C1.png')}
+                style={{
+                  height: 50,
+                  width: 50,
+                  transform: [{ rotate: rotate }],
+                  resizeMode: 'contain',
+                  top: jump,
+                  left
+                }}
+              />
+            </View>
           </View>
           <View style={{ height: '50%' }}>
             <TouchableOpacity>
@@ -182,7 +203,8 @@ class ChoicePage extends React.Component {
                   width: width * 0.45,
                   height: height * 0.2,
                   resizeMode: 'contain',
-                  marginTop: 30
+                  marginTop: 30,
+                  // opacity: 0.3
                 }}
               />
             </TouchableOpacity>
@@ -201,6 +223,7 @@ const styles = {
   },
   bg: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    left: -1
   }
 };
