@@ -17,16 +17,35 @@ import Header from './Header';
 class Barakhari extends React.Component {
   constructor(props) {
     super(props);
+    // this.moveTopChar = this.moveTopChar.bind(this);
+
     this.animatedOpacity = new Animated.Value(0);
+    this.animatedTopChar = new Animated.Value(0);
+    this.animatedBtmChar = new Animated.Value(0);
 
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder:(evt, gestureState) => true,
-      onPanResponderMove: ( evt, gestureState) => (console.log('pan moved', gestureState))
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderMove: (evt, gestureState) =>
+        console.log('pan moved', gestureState)
     });
+    this.state = {
+      i: 0
+    };
+  }
+
+  moveTopChar(x) {
+    this.setState({ i: x });
+    this.animatedTopChar.setValue(0);
+    Animated.timing(this.animatedTopChar, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.linear
+    }).start();
   }
 
   show() {
     this.animatedOpacity.setValue(0);
+
     Animated.timing(this.animatedOpacity, {
       toValue: 1,
       duration: 2000,
@@ -46,6 +65,17 @@ class Barakhari extends React.Component {
       inputRange: [0, 1],
       outputRange: [0, 1]
     });
+
+    const topTopChar = this.animatedTopChar.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 100]
+    });
+
+    const leftTopChar = this.animatedTopChar.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, -50]
+    });
+
     return (
       <ImageBackground
         source={require('../assets/bg/traditionalbg.png')}
@@ -64,18 +94,84 @@ class Barakhari extends React.Component {
         {/* container main */}
         <View style={{ borderWidth: 1, marginHorizontal: 2, height: '90%' }}>
           {/* top container for ka kha */}
-          <View style={{ borderWidth: 1, height: '15%' }}>
-            <TouchableOpacity
-              onPress={() => {
-                this.blast.play();
-                this.show();
+          <View
+            style={{
+              borderWidth: 1,
+              height: '15%',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <Animated.View
+              style={{
+                borderWidth: 1,
+                top: this.state.i !== 1 ? 0 : topTopChar,
+                left: this.state.i !== 1 ? 0 : leftTopChar
               }}
             >
-              <Animated.Image
-                source={require('../assets/vowels/1.png')}
-                style={{ resizeMode: 'contain', height: 50, width: 50 }}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  this.moveTopChar(1);
+                }}
+              >
+                <Animated.Image
+                  source={require('../assets/vowels/1.png')}
+                  style={{
+                    resizeMode: 'contain',
+                    height: 50,
+                    width: 50
+                  }}
+                />
+              </TouchableOpacity>
+            </Animated.View>
+
+            <Animated.View
+              style={{
+                borderWidth: 1,
+                top: this.state.i !== 2 ? 0 : topTopChar,
+                left: this.state.i !== 2 ? 0 : leftTopChar
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  this.moveTopChar(2);
+                }}
+              >
+                <Animated.Image
+                  source={require('../assets/vowels/1.png')}
+                  style={{
+                    resizeMode: 'contain',
+                    height: 50,
+                    width: 50
+                  }}
+                />
+              </TouchableOpacity>
+            </Animated.View>
+
+            {/* <Animated.View
+              style={{
+                borderWidth: 1
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ i: 1 });
+                  this.moveTopChar();
+                }}
+              >
+                <Animated.Image
+                  source={require('../assets/vowels/1.png')}
+                  style={{
+                    resizeMode: 'contain',
+                    height: 50,
+                    width: 50,
+                    top: this.state.i === 1 ? topTopChar : 0,
+                    left: this.state.i === 1 ? leftTopChar : 0
+                  }}
+                />
+              </TouchableOpacity>
+            </Animated.View> */}
           </View>
 
           {/* mid container */}

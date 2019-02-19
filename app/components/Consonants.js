@@ -12,7 +12,7 @@ import {
   Easing
 } from 'react-native';
 import Header from './Header';
-
+import LottieView from 'lottie-react-native';
 import SoundPlayer from 'react-native-sound-player';
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -178,6 +178,8 @@ class Consonants extends React.Component {
   constructor() {
     super();
     this.animatedValue = new Animated.Value(0);
+    this.animatedValue2 = new Animated.Value(0);
+    this.animatedValue3 = new Animated.Value(0);
     this.state = {
       visible: false,
       i: 0,
@@ -200,6 +202,9 @@ class Consonants extends React.Component {
   }
   showModal(x, y, z) {
     this.setState({ visible: x, selected: y, audio: z });
+    if (x === false) {
+      this.animatedValue3.setValue(0);
+    }
   }
   animate() {
     Animated.timing(this.animatedValue, {
@@ -207,6 +212,23 @@ class Consonants extends React.Component {
       duration: 1000,
       easing: Easing.ease
     }).start();
+  }
+  blast() {
+    this.animatedValue2.setValue(0);
+    this.animatedValue3.setValue(0);
+    Animated.parallel([
+      Animated.timing(this.animatedValue2, {
+        toValue: 1,
+        duration: 2000,
+        easing: Easing.ease
+      }),
+      Animated.timing(this.animatedValue3, {
+        toValue: 1,
+        duration: 2500,
+        delay: 1000,
+        easing: Easing.ease
+      })
+    ]).start(() => this.play(audio[this.state.i]));
   }
 
   next() {
@@ -225,6 +247,14 @@ class Consonants extends React.Component {
   }
 
   RenderModal() {
+    const sad = this.animatedValue2.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1]
+    });
+    const opacity = this.animatedValue3.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1]
+    });
     return (
       <Modal
         animationType='fade'
@@ -282,7 +312,7 @@ class Consonants extends React.Component {
                 >
                   <Image
                     source={data[this.state.selected]}
-                    style={{ resizeMode: 'stretch', height: 60, width: 60 }}
+                    style={{ resizeMode: 'stretch', height: 80, width: 80 }}
                   />
                 </TouchableOpacity>
               </View>
@@ -312,15 +342,29 @@ class Consonants extends React.Component {
                 width: '95%'
               }}
             >
-              <Image
-                source={image[this.state.selected]}
+              <LottieView
+                source={require('./blast.json')}
+                progress={sad}
                 style={{
-                  resizeMode: 'stretch',
-                  height: 150,
-                  width: 150,
-                  alignSelf: 'center'
+                  width: 250,
+                  height: 200,
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  top: -15
                 }}
               />
+              <TouchableOpacity onPress={() => this.play(audio[this.state.i])}>
+                <Animated.Image
+                  source={image[this.state.selected]}
+                  style={{
+                    resizeMode: 'stretch',
+                    height: 150,
+                    width: 150,
+                    alignSelf: 'center',
+                    opacity
+                  }}
+                />
+              </TouchableOpacity>
             </View>
 
             <TouchableOpacity onPress={() => this.showModal(false, 0)}>
@@ -397,6 +441,7 @@ class Consonants extends React.Component {
               onPress={() => {
                 this.play(audio[this.state.i]);
                 this.showModal(true, this.state.i, audio[this.state.i]);
+                this.blast();
               }}
             >
               <Image
@@ -412,6 +457,7 @@ class Consonants extends React.Component {
               onPress={() => {
                 this.play(audio[this.state.i + 2]);
                 this.showModal(true, this.state.i + 2, audio[this.state.i + 2]);
+                this.blast();
               }}
             >
               <Image
@@ -427,6 +473,7 @@ class Consonants extends React.Component {
               onPress={() => {
                 this.play(audio[this.state.i + 4]);
                 this.showModal(true, this.state.i + 4, audio[this.state.i + 4]);
+                this.blast();
               }}
             >
               <Image
@@ -451,6 +498,7 @@ class Consonants extends React.Component {
               onPress={() => {
                 this.play(audio[this.state.i + 1]);
                 this.showModal(true, this.state.i + 1, audio[this.state.i + 1]);
+                this.blast();
               }}
             >
               <Image
@@ -466,6 +514,7 @@ class Consonants extends React.Component {
               onPress={() => {
                 this.play(audio[this.state.i + 3]);
                 this.showModal(true, this.state.i + 3, audio[this.state.i + 3]);
+                this.blast();
               }}
             >
               <Image
@@ -481,6 +530,7 @@ class Consonants extends React.Component {
               onPress={() => {
                 this.play(audio[this.state.i + 5]);
                 this.showModal(true, this.state.i + 5, audio[this.state.i + 5]);
+                this.blast();
               }}
             >
               <Image

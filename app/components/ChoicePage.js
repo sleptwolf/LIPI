@@ -17,6 +17,10 @@ class ChoicePage extends React.Component {
     super(props);
     this.animate = this.animate.bind(this);
     this.animatedValue = new Animated.Value(0);
+    this.animatedValue1 = new Animated.Value(0);
+    this.animatedValue2 = new Animated.Value(0);
+    this.animatedValue3 = new Animated.Value(0);
+    this.animatedValue4 = new Animated.Value(0);
   }
 
   static navigationOptions = {
@@ -29,16 +33,25 @@ class ChoicePage extends React.Component {
   componentDidMount() {
     StatusBar.setHidden(true);
     this.setState({ isHidden: false });
-    // this.animate();
+    this.animate();
   }
 
   animate() {
     this.animatedValue.setValue(0);
-    Animated.timing(this.animatedValue, {
-      toValue: 1,
-      duration: 1000,
-      easing: Easing.linear
-    }).start(() => this.props.navigation.navigate('MainPage'));
+    this.animatedValue1.setValue(0);
+    Animated.parallel([
+      Animated.timing(this.animatedValue, {
+        toValue: 1,
+        duration: 800,
+        easing: Easing.linear
+      }),
+      Animated.timing(this.animatedValue1, {
+        toValue: 1,
+        duration: 800,
+        // delay: 1000,
+        easing: Easing.linear
+      })
+    ]).start(() => this.animate());
   }
 
   render() {
@@ -46,8 +59,23 @@ class ChoicePage extends React.Component {
 
     // rotate garnu paryo
     const rotate = this.animatedValue.interpolate({
-      inputRange: [0, 0.33, 0.66, 1],
-      outputRange: ['0deg', '5deg', '-5deg', '0deg']
+      inputRange: [0, 0.25, 0.5, 0.75, 1],
+      outputRange: ['0deg', '-15deg', '0deg', '15deg', '0deg']
+    });
+
+    const jump = this.animatedValue.interpolate({
+      inputRange: [0, 0.25, 0.5, 0.75, 1],
+      outputRange: [0, -10, 0, -10, 0]
+    });
+
+    const left = this.animatedValue1.interpolate({
+      inputRange: [0, 0.25, 0.5, 0.75, 1],
+      outputRange: [0, -5, 0, 5, 0]
+    });
+
+    const rotateLeft = this.animatedValue2.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '-15deg']
     });
 
     return (
@@ -55,12 +83,16 @@ class ChoicePage extends React.Component {
         <ImageBackground
           source={require('../assets/bg/learnbg.png')}
           style={bg}
-          imageStyle={{ width: width + 2, height: height + 2, resizeMode: 'stretch' }}
+          imageStyle={{
+            width: width + 2,
+            height: height + 2,
+            resizeMode: 'stretch'
+          }}
         >
-          <View style={{ height: '30%',  alignItems: 'flex-end' }}>
+          <View style={{ height: '30%', alignItems: 'flex-end' }}>
             <TouchableOpacity
               onPress={() => {
-                this.animate();
+                this.props.navigation.navigate('MainPage');
               }}
             >
               <Image
@@ -74,14 +106,16 @@ class ChoicePage extends React.Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'row', height: '20%', padding: 30,  }}>
+          <View style={{ flexDirection: 'row', height: '20%', padding: 30 }}>
             <Animated.Image
               source={require('../assets/char/C3.png')}
               style={{
                 height: 50,
                 width: 50,
                 transform: [{ rotate: rotate }],
-                resizeMode: 'contain'
+                resizeMode: 'contain',
+                top: jump,
+                left
               }}
             />
             <Animated.Image
@@ -90,7 +124,9 @@ class ChoicePage extends React.Component {
                 height: 50,
                 width: 50,
                 transform: [{ rotate: rotate }],
-                resizeMode: 'contain'
+                resizeMode: 'contain',
+                top: jump,
+                left
               }}
             />
             <Animated.Image
@@ -99,7 +135,9 @@ class ChoicePage extends React.Component {
                 height: 50,
                 width: 50,
                 transform: [{ rotate: rotate }],
-                resizeMode: 'contain'
+                resizeMode: 'contain',
+                top: jump,
+                left
               }}
             />
             <Animated.Image
@@ -108,7 +146,9 @@ class ChoicePage extends React.Component {
                 height: 50,
                 width: 50,
                 transform: [{ rotate: rotate }],
-                resizeMode: 'contain'
+                resizeMode: 'contain',
+                top: jump,
+                left
               }}
             />
             <Animated.Image
@@ -117,7 +157,9 @@ class ChoicePage extends React.Component {
                 height: 50,
                 width: 50,
                 transform: [{ rotate: rotate }],
-                resizeMode: 'contain'
+                resizeMode: 'contain',
+                top: jump,
+                left
               }}
             />
             <Animated.Image
@@ -126,11 +168,13 @@ class ChoicePage extends React.Component {
                 height: 50,
                 width: 50,
                 transform: [{ rotate: rotate }],
-                resizeMode: 'contain'
+                resizeMode: 'contain',
+                top: jump,
+                left
               }}
             />
           </View>
-          <View style={{ height: '50%',  }}>
+          <View style={{ height: '50%' }}>
             <TouchableOpacity>
               <Image
                 source={require('../assets/buttons/play.png')}

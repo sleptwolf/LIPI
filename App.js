@@ -60,7 +60,7 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Splash',
+    initialRouteName: 'Numbers',
     defaultNavigationOptions: {
       header: null
     }

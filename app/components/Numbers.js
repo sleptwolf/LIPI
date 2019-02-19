@@ -57,9 +57,11 @@ class Numbers extends Component {
         style={{
           width,
           height,
-          padding: 1
+          padding: 1,
+          top: -1,
+          left: -1
         }}
-        imageStyle={{ resizeMode: 'stretch' }}
+        imageStyle={{ resizeMode: 'stretch', width: width + 2, height: height + 2 }}
       >
         <Header
           onPressHome={() => this.props.navigation.navigate('ChoicePage')}
@@ -98,7 +100,7 @@ class Numbers extends Component {
                 size={
                   this.state.pressed >= 1 ? this.state.sizeH : this.state.sizeL
                 }
-                color='red'
+                color='#7C4DFF'
               />
             </View>
             <View style={{ height: 60, width: 60 }} />
