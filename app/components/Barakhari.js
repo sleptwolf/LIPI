@@ -2,298 +2,284 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
-  Image,
-  StatusBar,
-  ImageBackground,
-  Dimensions,
   Animated,
   Easing,
-  PanResponder
+  Text,
+  ImageBackground,
+  StatusBar,
+  Dimensions
 } from 'react-native';
-import LottieView from 'lottie-react-native';
-
 import Header from './Header';
 
+const { width, height } = Dimensions.get('window');
+
 class Barakhari extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.moveTopChar = this.moveTopChar.bind(this);
-
-    this.animatedOpacity = new Animated.Value(0);
-    this.animatedTopChar = new Animated.Value(0);
-    this.animatedBtmChar = new Animated.Value(0);
-
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onPanResponderMove: (evt, gestureState) =>
-        console.log('pan moved', gestureState)
-    });
+  constructor() {
+    super();
+    this.animatedValue = new Animated.Value(0);
+    this.drop = this.drop.bind(this);
     this.state = {
-      i: 0
+      i: null,
+      topCharLeft: null
     };
   }
 
-  moveTopChar(x) {
-    this.setState({ i: x });
-    this.animatedTopChar.setValue(0);
-    Animated.timing(this.animatedTopChar, {
-      toValue: 1,
-      duration: 1000,
-      easing: Easing.linear
-    }).start();
-  }
+  static navigationOptions = {
+    headerVisible: false,
+    header: null
+  };
 
-  show() {
-    this.animatedOpacity.setValue(0);
-
-    Animated.timing(this.animatedOpacity, {
-      toValue: 1,
-      duration: 2000,
-      easing: Easing.ease,
-      delay: 300
-    }).start();
-  }
   componentDidMount() {
     StatusBar.setHidden(true);
   }
+
+  drop(x, y) {
+    console.log('b4 press:', this.state.i);
+    this.animatedValue.setValue(0);
+    this.setState({ i: x, topCharLeft: y }, () => {
+      Animated.timing(this.animatedValue, {
+        toValue: 1,
+        duration: 500,
+        easing: Easing.ease
+      }).start(() => console.log('after press:', this.state.i));
+    });
+  }
+
   render() {
-    const { bg } = styles;
-    const { width, height } = Dimensions.get('window');
-    const { goBack } = this.props.navigation;
-
-    const opacity = this.animatedOpacity.interpolate({
+    const top = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [0, height * 0.3]
     });
 
-    const topTopChar = this.animatedTopChar.interpolate({
+    const left = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 100]
+      outputRange: [0, this.state.topCharLeft]
     });
-
-    const leftTopChar = this.animatedTopChar.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, -50]
-    });
-
     return (
       <ImageBackground
-        source={require('../assets/bg/traditionalbg.png')}
-        style={bg}
-        imageStyle={{
-          width: width + 4,
-          height: height + 2,
-          resizeMode: 'stretch',
-          left: -2
-        }}
+        source={require('../assets/bg/bg_display.png')}
+        style={{ width: '100%', height: '100%' }}
       >
         <Header
           onPressHome={() => this.props.navigation.navigate('ChoicePage')}
           onPressBack={() => goBack()}
         />
-        {/* container main */}
-        <View style={{ borderWidth: 1, marginHorizontal: 2, height: '90%' }}>
-          {/* top container for ka kha */}
+        <View
+          style={{
+            height: '100%',
+            width: '100%'
+            // borderWidth: 1,
+            // borderColor: 'red'
+          }}
+        >
           <View
             style={{
+              height: '10%',
+              width: '100%',
               borderWidth: 1,
-              height: '15%',
+              borderColor: 'green',
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'space-evenly'
             }}
           >
             <Animated.View
-              style={{
-                borderWidth: 1,
-                top: this.state.i !== 1 ? 0 : topTopChar,
-                left: this.state.i !== 1 ? 0 : leftTopChar
-              }}
+              style={
+                this.state.i == 1
+                  ? {
+                      top,
+                      left
+                    }
+                  : {}
+              }
             >
-              <TouchableOpacity
-                onPress={() => {
-                  this.moveTopChar(1);
-                }}
-              >
-                <Animated.Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{
-                    resizeMode: 'contain',
-                    height: 50,
-                    width: 50
-                  }}
+              <TouchableOpacity onPress={() => this.drop(1, 0)}>
+                <Animated.View
+                  style={{ height: 50, width: 50, backgroundColor: 'red' }}
                 />
               </TouchableOpacity>
             </Animated.View>
 
             <Animated.View
-              style={{
-                borderWidth: 1,
-                top: this.state.i !== 2 ? 0 : topTopChar,
-                left: this.state.i !== 2 ? 0 : leftTopChar
-              }}
+              style={
+                this.state.i == 2
+                  ? {
+                      top,
+                      left
+                    }
+                  : {}
+              }
             >
-              <TouchableOpacity
-                onPress={() => {
-                  this.moveTopChar(2);
-                }}
-              >
-                <Animated.Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{
-                    resizeMode: 'contain',
-                    height: 50,
-                    width: 50
-                  }}
+              <TouchableOpacity onPress={() => this.drop(2, -82)}>
+                <Animated.View
+                  style={{ height: 50, width: 50, backgroundColor: 'green' }}
                 />
               </TouchableOpacity>
             </Animated.View>
 
-            {/* <Animated.View
-              style={{
-                borderWidth: 1
-              }}
+            <Animated.View
+              style={
+                this.state.i == 3
+                  ? {
+                      top,
+                      left
+                    }
+                  : {}
+              }
             >
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({ i: 1 });
-                  this.moveTopChar();
-                }}
-              >
-                <Animated.Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{
-                    resizeMode: 'contain',
-                    height: 50,
-                    width: 50,
-                    top: this.state.i === 1 ? topTopChar : 0,
-                    left: this.state.i === 1 ? leftTopChar : 0
-                  }}
+              <TouchableOpacity onPress={() => this.drop(3, -164)}>
+                <Animated.View
+                  style={{ height: 50, width: 50, backgroundColor: 'blue' }}
                 />
               </TouchableOpacity>
-            </Animated.View> */}
-          </View>
+            </Animated.View>
 
-          {/* mid container */}
+            <Animated.View
+              style={
+                this.state.i == 4
+                  ? {
+                      top,
+                      left
+                    }
+                  : {}
+              }
+            >
+              <TouchableOpacity onPress={() => this.drop(4, -246)}>
+                <Animated.View
+                  style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                />
+              </TouchableOpacity>
+            </Animated.View>
+          </View>
+          {/* middle container */}
           <View
             style={{
+              height: '50%',
+              width: '100%',
+              borderColor: 'red',
               borderWidth: 1,
-              height: '60%',
-              justifyContent: 'center',
-              alignItems: 'center'
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-evenly'
             }}
           >
-            <LottieView
-              source={require('./blast.json')}
-              loop={false}
-              ref={blast => {
-                this.blast = blast;
-              }}
-              style={{}}
-            />
-            <Animated.View
-              style={{
-                backgroundColor: 'white',
-                opacity,
-                width: 80,
-                height: 80
-              }}
-            />
+            <View style={{ height: 51, width: 51, borderWidth: 1,  }}/>
+            <View style={{ height: 51, width: 51, borderWidth: 1,  }}/>
+            <View style={{ height: 51, width: 51, borderWidth: 1,  }}/>
+            <View style={{ height: 51, width: 51, borderWidth: 1,  }}/>
           </View>
-
-          {/* btm container for a aa */}
-          <View style={{ borderWidth: 1, height: '25%' }}>
+          {/* bottom container */}
+          <View
+            style={{
+              height: '30%',
+              width: '100%',
+              borderColor: 'blue',
+              borderWidth: 1
+            }}
+          >
             <View
               style={{
-                flexDirection: 'row',
-                borderWidth: 1,
                 height: '50%',
+                width: '98%',
+                flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-evenly'
               }}
             >
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
             </View>
             <View
               style={{
-                flexDirection: 'row',
-                borderWidth: 1,
                 height: '50%',
+                width: '98%',
+                flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-evenly'
               }}
             >
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
-              <View style={{ height: 50, width: 50 }}>
-                <Image
-                  source={require('../assets/vowels/1.png')}
-                  style={{ resizeMode: 'contain', height: 50, width: 50 }}
-                />
-              </View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <Animated.View style={{}}>
+                <TouchableOpacity>
+                  <Animated.View
+                    style={{ height: 50, width: 50, backgroundColor: 'yellow' }}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
             </View>
           </View>
         </View>
@@ -303,9 +289,3 @@ class Barakhari extends React.Component {
 }
 
 export { Barakhari };
-
-const styles = {
-  bg: {
-    flex: 1
-  }
-};

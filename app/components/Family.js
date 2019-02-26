@@ -396,7 +396,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/grandfather.png')}
+                source={
+                  this.state.showing === 'grandpa'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/grandfather.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'grandpa'
@@ -431,7 +435,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/grandmother.png')}
+                source={
+                  this.state.showing === 'grandma'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/grandmother.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'grandma'
@@ -460,7 +468,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/father.png')}
+                source={
+                  this.state.showing === 'dad'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/father.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'dad'
@@ -489,7 +501,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/mother.png')}
+                source={
+                  this.state.showing === 'mom'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/mother.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'mom'
@@ -518,7 +534,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/aunty.png')}
+                source={
+                  this.state.showing === 'aunt'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/aunty.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'aunt'
@@ -549,7 +569,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/uncle.png')}
+                source={
+                  this.state.showing === 'uncle'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/uncle.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'uncle'
@@ -578,7 +602,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/bigbrother.png')}
+                source={
+                  this.state.showing === 'bbro'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/bigbrother.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'bbro'
@@ -607,7 +635,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/bigsister.png')}
+                source={
+                  this.state.showing === 'bsis'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/bigsister.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'bsis'
@@ -636,7 +668,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/boy.png')}
+                source={
+                  this.state.showing === 'lbro'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/boy.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'lbro'
@@ -665,7 +701,11 @@ class Family extends React.Component {
               }}
             >
               <Image
-                source={require('../assets/family/girl.png')}
+                source={
+                  this.state.showing === 'lsis'
+                    ? require('../assets/family/black.png')
+                    : require('../assets/family/girl.png')
+                }
                 style={[
                   styles.button,
                   this.state.showing === 'lsis'

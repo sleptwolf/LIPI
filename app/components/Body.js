@@ -70,7 +70,7 @@ class Body extends React.Component {
     Animated.timing(this.animatedvalue, {
       toValue: 1,
       duration: 500,
-      easing: Easing.ease
+      easing: Easing.linear
     }).start(() =>
       this.setState({
         width: this.state.newWidth,
@@ -102,144 +102,333 @@ class Body extends React.Component {
     });
 
     return (
-      <ImageBackground style={[bg, { backgroundColor: 'white' }]}>
+      <ImageBackground style={bg}>
         <Header
+          style={{ backgroundColor: 'white', zIndex: 1 }}
           onPressHome={() => this.props.navigation.navigate('ChoicePage')}
           onPressBack={() => goBack()}
         />
-        <View
-          style={{
-            width,
-            height: '5%',
-            zIndex: 1,
-            backgroundColor: 'white',
-            alignItems: 'center'
-          }}
-        >
-          <Text style={{ fontSize: 20, textAlign: 'center' }}>
-            {words[this.state.i]}
-          </Text>
-        </View>
-        <View style={styles.container}>
-          <Animated.Image
-            source={require('../assets/body/body.png')}
+        <View style={{ backgroundColor: 'white', flex: 1 }}>
+          <View
             style={{
-              height:
-                this.state.initial === true ? this.state.initialHeight : imgH,
-              width:
-                this.state.initial === true ? this.state.initialWidth : imgW,
-              resizeMode: 'contain',
-              top: this.state.initial === true ? 0 : imgT,
-              left: this.state.initial === true ? 0 : imgL
+              width,
+              height: '5%',
+              zIndex: 1,
+              backgroundColor: 'white',
+              alignItems: 'center'
             }}
-          />
-        </View>
-        <View style={styles.buttons}>
-          <View style={styles.buttonsTop}>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'head')
-                  this.animate(width * 2, height * 1.6, 0, -100, 'head', 0);
-              }}
-            >
-              <Image
-                source={require('../assets/body/headico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'eyes')
-                  this.animate(width * 3.3, height * 3.3, 10, -450, 'eyes', 1);
-              }}
-            >
-              <Image
-                source={require('../assets/body/eyesico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'nose')
-                  this.animate(width * 4.8, height * 4.8, 10, -950, 'nose', 2);
-              }}
-            >
-              <Image
-                source={require('../assets/body/noseico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'mouth')
-                  this.animate(
-                    width * 4.5,
-                    height * 4.4,
-                    10,
-                    -1100,
-                    'mouth',
-                    3
-                  );
-              }}
-            >
-              <Image
-                source={require('../assets/body/mouthico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
+          >
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>
+              {words[this.state.i]}
+            </Text>
           </View>
-          <View style={styles.buttonsTop}>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'ear')
-                  this.animate(width * 4.5, height * 4.4, 400, -850, 'ear', 4);
+          <View style={styles.container}>
+            <Animated.Image
+              source={require('../assets/body/body.png')}
+              style={{
+                height:
+                  this.state.initial === true ? this.state.initialHeight : imgH,
+                width:
+                  this.state.initial === true ? this.state.initialWidth : imgW,
+                resizeMode: 'contain',
+                top: this.state.initial === true ? 0 : imgT,
+                left: this.state.initial === true ? 0 : imgL
               }}
-            >
-              <Image
-                source={require('../assets/body/earico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'body')
-                  this.animate(width * 2, height * 1, 10, -300, 'body', 5);
-              }}
-            >
-              <Image
-                source={require('../assets/body/bodyico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'hand')
-                  this.animate(
-                    width * 3.2,
-                    height * 3.2,
-                    200,
-                    -1000,
-                    'hand',
-                    6
-                  );
-              }}
-            >
-              <Image
-                source={require('../assets/body/handico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (this.state.showing !== 'feet')
-                  this.animate(width * 3, height * 3.2, 0, -1300, 'feet', 7);
-              }}
-            >
-              <Image
-                source={require('../assets/body/legico.png')}
-                style={styles.button}
-              />
-            </TouchableOpacity>
+            />
+          </View>
+          <View style={styles.buttons}>
+            <View style={styles.buttonsTop}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'head')
+                    this.animate(
+                      width * 2,
+                      height * 1.6,
+                      0,
+                      -height * 0.15,
+                      'head',
+                      0
+                    );
+                  else if (this.state.showing === 'head')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'head' ?require('../assets/family/black.png'):require('../assets/body/headico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'head'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'eyes')
+                    this.animate(
+                      width * 3.3,
+                      height * 3.3,
+                      width * 0.01,
+                      -height * 0.7,
+                      'eyes',
+                      1
+                    );
+                    else if (this.state.showing === 'eyes')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'eyes' ?require('../assets/family/black.png'):require('../assets/body/eyesico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'eyes'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'nose')
+                    this.animate(
+                      width * 5.2,
+                      height * 5.2,
+                      width * 0.01,
+                      -height * 1.6,
+                      'nose',
+                      2
+                    );
+                    else if (this.state.showing === 'nose')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'nose' ?require('../assets/family/black.png'):require('../assets/body/noseico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'nose'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'mouth')
+                    this.animate(
+                      width * 5.2,
+                      height * 5.2,
+                      width * 0.01,
+                      -height * 2,
+                      'mouth',
+                      3
+                    );
+                    else if (this.state.showing === 'mouth')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'mouth' ?require('../assets/family/black.png'):require('../assets/body/mouthico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'mouth'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonsTop}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'ear')
+                    this.animate(
+                      width * 5.5,
+                      height * 5.4,
+                      width * 1.2,
+                      -height * 1.65,
+                      'ear',
+                      4
+                    );
+                    else if (this.state.showing === 'ear')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'ear' ?require('../assets/family/black.png'):require('../assets/body/earico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'ear'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'body')
+                    this.animate(
+                      width * 2,
+                      height * 1,
+                      10,
+                      -height * 0.47,
+                      'body',
+                      5
+                    );
+                    else if (this.state.showing === 'body')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'body' ?require('../assets/family/black.png'):require('../assets/body/bodyico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'body'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'hand')
+                    this.animate(
+                      width * 3.2,
+                      height * 3.2,
+                      width * 0.5,
+                      -height * 1.65,
+                      'hand',
+                      6
+                    );
+                    else if (this.state.showing === 'hand')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'hand' ?require('../assets/family/black.png'):require('../assets/body/handico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'hand'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (this.state.showing !== 'feet')
+                    this.animate(
+                      width * 3,
+                      height * 3.2,
+                      0,
+                      -height * 2,
+                      'feet',
+                      7
+                    );
+                    else if (this.state.showing === 'feet')
+                    this.animate(
+                      this.state.initialWidth,
+                      this.state.initialHeight,
+                      0,
+                      0,
+                      null,
+                      true
+                    );
+                }}
+              >
+                <Image
+                  source={this.state.showing === 'feet' ?require('../assets/family/black.png'):require('../assets/body/legico.png')}
+                  style={[
+                    styles.button,
+                    this.state.showing === 'feet'
+                      ? {
+                          borderRadius: 30,
+                          borderWidth: 3,
+                          borderColor: 'red'
+                        }
+                      : null
+                  ]}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ImageBackground>
@@ -251,7 +440,8 @@ export { Body };
 
 const styles = {
   bg: {
-    flex: 1
+    height,
+    width
   },
   top: {
     flexDirection: 'row',
@@ -270,15 +460,15 @@ const styles = {
   container: {
     alignItems: 'center',
     width: '100%',
-    height: '60%',
-    marginTop: 1
+    height: '70%'
   },
   buttons: {
     width: '100%',
     height: '25%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    alignSelf: 'flex-end'
   },
   buttonsTop: {
     height: '48%',
@@ -287,8 +477,8 @@ const styles = {
     justifyContent: 'space-evenly'
   },
   button: {
-    height: '100%',
-    width: 80,
-    resizeMode: 'stretch'
+    height: 60,
+    width: 60,
+    // resizeMode: 'stretch'
   }
 };

@@ -62,11 +62,11 @@ class Letters extends React.Component {
               onPress={() => this.props.navigation.navigate('Vowels')}
             >
               <Image
-                source={require('../assets/buttons/vowels.png')}
+                source={require('../assets/buttons/vowels2.png')}
                 style={{
-                  height: height * 0.2,
+                  height: height * 0.1,
                   width: width * 0.4,
-                  resizeMode: 'contain'
+                  resizeMode: 'stretch'
                 }}
               />
             </TouchableOpacity>
@@ -76,11 +76,11 @@ class Letters extends React.Component {
               onPress={() => this.props.navigation.navigate('Consonants')}
             >
               <Image
-                source={require('../assets/buttons/consonant.png')}
+                source={require('../assets/buttons/consonants.png')}
                 style={{
-                  height: height * 0.2,
+                  height: height * 0.1,
                   width: width * 0.4,
-                  resizeMode: 'contain'
+                  resizeMode: 'stretch'
                 }}
               />
             </TouchableOpacity>
@@ -92,9 +92,9 @@ class Letters extends React.Component {
               <Image
                 source={require('../assets/buttons/barakhari.png')}
                 style={{
-                  height: height * 0.2,
+                  height: height * 0.1,
                   width: width * 0.4,
-                  resizeMode: 'contain'
+                  resizeMode: 'stretch'
                 }}
               />
             </TouchableOpacity>
@@ -127,7 +127,8 @@ const styles = {
     width: width,
     height: height * 0.7,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly',
     // borderWidth: 1,
+    marginTop: height * 0.05
   }
 };

@@ -63,7 +63,7 @@ class MainPage extends Component {
           />
 
           <View
-            style={{ marginTop: height * 0.05, flex: 1, paddingHorizontal: 20 }}
+            style={{ marginTop: height * 0.05, height: height * 0.7, paddingHorizontal: 20, justifyContent: 'space-evenly' }}
           >
             <Animated.View style={{ left: move }}>
               <TouchableOpacity
@@ -73,8 +73,8 @@ class MainPage extends Component {
                   source={require('../assets/buttons/letters.png')}
                   style={{
                     width: width * 0.4,
-                    height: height * 0.15,
-                    resizeMode: 'contain',
+                    height: height * 0.1,
+                    resizeMode: 'stretch',
                     margin: 20
                   }}
                 />
@@ -89,8 +89,8 @@ class MainPage extends Component {
                   source={require('../assets/buttons/numbers.png')}
                   style={{
                     width: width * 0.4,
-                    height: height * 0.15,
-                    resizeMode: 'contain',
+                    height: height * 0.1,
+                    resizeMode: 'stretch',
                     margin: 20
                   }}
                 />
@@ -105,8 +105,8 @@ class MainPage extends Component {
                   source={require('../assets/buttons/words.png')}
                   style={{
                     width: width * 0.4,
-                    height: height * 0.15,
-                    resizeMode: 'contain',
+                    height: height * 0.1,
+                    resizeMode: 'stretch',
                     margin: 20
                   }}
                 />

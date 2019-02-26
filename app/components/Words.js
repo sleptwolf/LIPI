@@ -45,7 +45,7 @@ class Words extends React.Component {
       outputRange: [0, -width * 0.1, 0, width * 0.1, 0]
     });
     return (
-      <ImageBackground source={require('../assets/bg/bg_main.png')} style={bg}>
+      <ImageBackground source={require('../assets/bg/TOPICbg.png')} style={bg}>
         <Header
           onPressHome={() => this.props.navigation.navigate('ChoicePage')}
           onPressBack={() => goBack()}

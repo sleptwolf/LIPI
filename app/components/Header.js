@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity } from 'react-native';
 
 const Header = props => {
   return (
-    <View style={styles.top}>
+    <View style={[styles.top, props.style]}>
       <View style={styles.back}>
         <TouchableOpacity onPress={props.onPressBack}>
           <Image

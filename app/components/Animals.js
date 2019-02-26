@@ -14,44 +14,45 @@ import Header from './Header';
 const { width, height } = Dimensions.get('window');
 
 const names = [
-  'Monkey / बाँदर',
   'Cat / बिरालो',
+  'Monkey / बाँदर',
   'Dog / कुकुर',
   'Snake / सांप',
   'Sheep / भेडा',
+  'Cow / गाई',
   'Pig / सुँगुर',
   'Chicken / कुखुरा',
-  'Cow / गाई',
-  'Rhino / गैंडा',
-  'Tiger / बाघ',
   'Lion / सिंह',
-  'Elephant / हात्ती'
+  'Elephant / हात्ती',
+  'Tiger / बाघ',  
+  'Rhino / गैंडा',
 ];
 
 const images = [
-  require('../assets/animal/monkey.png'),
   require('../assets/animal/cat.png'),
+  require('../assets/animal/monkey.png'),
   require('../assets/animal/dog.png'),
   require('../assets/animal/snake.png'),
   require('../assets/animal/sheep.png'),
+  require('../assets/animal/cow.png'),
   require('../assets/animal/pig.png'),
   require('../assets/animal/chicken.png'),
-  require('../assets/animal/cow.png'),
-  require('../assets/animal/rhino.png'),
-  require('../assets/animal/tiger.png'),
   require('../assets/animal/lion.png'),
-  require('../assets/animal/elephant.png')
+  require('../assets/animal/elephant.png'),
+  require('../assets/animal/tiger.png'),
+  require('../assets/animal/rhino.png'),
+ 
 ];
 
 const bgimg = [
-  require('../assets/animal/pet.png'),
+  require('../assets/animal/petbg.png'),
   require('../assets/animal/farmbg.png'),
-  require('../assets/animal/wildbg.png')
+  require('../assets/animal/junglebg.png')
 ];
 
-const imgTop = [8, 260, 490, -60, 340, 515, 320, 370, 420, 515, 315, 365];
+// const imgTop = [8, 260, 490, -60, 340, 515, 320, 370, 420, 515, 315, 365];
 
-const imgLeft = [-15, -25, 20, -50, 30, 55, -15, -10, 90, 140, -75, -30];
+// const imgLeft = [-15, -25, 20, -50, 30, 55, -15, -10, 90, 140, -75, -30];
 
 class Animals extends React.Component {
   constructor(props) {
@@ -175,58 +176,70 @@ class Animals extends React.Component {
         >
           <View
             style={{
-              height: 100,
-              width: 100,
+              height: height * 0.1,
+              width: width * 0.2,
               borderRadius: 45,
-              left: imgLeft[this.state.j],
-              top: imgTop[this.state.j]
+              // left: imgLeft[this.state.j],
+              // top: imgTop[this.state.j]
+              left: -width * 0.4,
+              top: height * 0.45,
+              position: 'absolute'
             }}
           >
             <TouchableOpacity
               onPress={() => this.showModal(true, 0)}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%',  }}
             />
           </View>
           <View
             style={{
-              height: 100,
-              width: 100,
+              height: height * 0.08,
+              width: width * 0.15,
               borderRadius: 45,
-              left: imgLeft[this.state.j + 1],
-              top: imgTop[this.state.j + 1]
+              // left: imgLeft[this.state.j + 1],
+              // top: imgTop[this.state.j + 1]
+              left: -width * 0.095,
+              top: height * 0.34,
+              position: 'absolute'
             }}
           >
             <TouchableOpacity
               onPress={() => this.showModal(true, 1)}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%', }}
             />
           </View>
           <View
             style={{
-              height: 100,
-              width: 100,
+              height: height * 0.15,
+              width: width * 0.2,
               borderRadius: 45,
-              left: imgLeft[this.state.j + 2],
-              top: imgTop[this.state.j + 2]
+              // left: imgLeft[this.state.j + 2],
+              // top: imgTop[this.state.j + 2]
+              position: 'absolute',
+              left: -width * 0.095,
+              top: height * 0.65
             }}
           >
             <TouchableOpacity
               onPress={() => this.showModal(true, 2)}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%', }}
             />
           </View>
           <View
             style={{
-              height: 100,
-              width: 100,
+              height: height * 0.1,
+              width: width * 0.2,
               borderRadius: 45,
-              left: imgLeft[this.state.j + 3],
-              top: imgTop[this.state.j + 3]
+              //   left: imgLeft[this.state.j + 3],
+              //   top: imgTop[this.state.j + 3]
+              position: 'absolute',
+              left: width * 0.22,
+              top: height * 0.435
             }}
           >
             <TouchableOpacity
               onPress={() => this.showModal(true, 3)}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: '100%', width: '100%', }}
             />
           </View>
         </View>

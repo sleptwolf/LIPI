@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   StatusBar
 } from 'react-native';
-import LottieView from 'lottie-react-native';
 
 class Splash extends React.Component {
   constructor() {
@@ -17,6 +16,7 @@ class Splash extends React.Component {
     this.animatedValueSky = new Animated.Value(0);
     this.animatedValueHill = new Animated.Value(0);
     this.animatedValueSun = new Animated.Value(0);
+    this.animatedSunSize = new Animated.Value(0);
     this.animatedValueMoon = new Animated.Value(0);
     this.animatedValueHouse = new Animated.Value(0);
     this.animatedValueL = new Animated.Value(0);
@@ -26,6 +26,7 @@ class Splash extends React.Component {
     this.animatedValueButton = new Animated.Value(0);
     this.width = Dimensions.get('window').width;
     this.height = Dimensions.get('window').height;
+    this.rotate = this.rotate.bind(this);
     this.state = {
       disabled: true,
       autoplay: false
@@ -40,7 +41,18 @@ class Splash extends React.Component {
     StatusBar.setHidden(true);
     this.setState({ isHidden: false });
     this.animate();
+    this.rotate();
   }
+
+  rotate() {
+    this.animatedSunSize.setValue(0);
+    Animated.timing(this.animatedSunSize, {
+      toValue: 1,
+      duration: 5000,
+      easing: Easing.linear
+    }).start(() => this.rotate());
+  }
+
   animate() {
     this.animatedValueLogo.setValue(0);
     this.animatedValueSky.setValue(0);
@@ -76,7 +88,8 @@ class Splash extends React.Component {
       createAnimation(this.animatedValueI2, 700, Easing.ease, 5500),
       createAnimation(this.animatedValueButton, 500, Easing.linear, 6500)
     ]).start(({ finished }) => {
-      this.rotate.play();
+      // this.rotate.play();
+      
       if (finished == true) this.setState({ disabled: false });
     });
   }
@@ -117,6 +130,10 @@ class Splash extends React.Component {
     const sunTop = this.animatedValueSun.interpolate({
       inputRange: [0, 1],
       outputRange: [this.height / 2, this.height * 0.1]
+    });
+    const sunsize = this.animatedSunSize.interpolate({
+      inputRange: [0,  1],
+      outputRange: ['0deg', '360deg']
     });
 
     // this is for moon movement
@@ -203,13 +220,13 @@ class Splash extends React.Component {
           }}
           source={require('../assets/splash/groundbg.png')}
         />
-        <LottieView 
+        {/* <LottieView
           source={require('./final.json')}
           autoPlay={true}
           loop={false}
-        />
+        /> */}
         {/* bouncer */}
-        {/* <Animated.View
+        <Animated.View
           style={{
             marginLeft,
             top,
@@ -219,12 +236,17 @@ class Splash extends React.Component {
             position: 'absolute'
           }}
         >
-          <LottieView
-            source={require('../assets/splash/twinkle.json')}
-            autoPlay={true}
-            style={{ height: 150, width: 150 }}
+          <Image 
+            source={require('../assets/splash/star.png')}
+            style={{
+              height: 50,
+              width: 50,
+              position: 'absolute',
+              zIndex: 2,
+              resizeMode: 'stretch'
+            }}
           />
-        </Animated.View> */}
+        </Animated.View>
         {/* sun */}
         <Animated.View
           style={{
@@ -236,11 +258,15 @@ class Splash extends React.Component {
             position: 'absolute'
           }}
         >
-          <LottieView
+          {/* <LottieView
             source={require('../assets/splash/sun.json')}
             ref={rotate => {
               this.rotate = rotate;
             }}
+          /> */}
+          <Animated.Image
+            source={require('../assets/splash/sun.png')}
+            style={{ height: 100, width: 100, resizeMode: 'stretch', transform: [{ rotate: sunsize}] }}
           />
         </Animated.View>
         {/* moon */}

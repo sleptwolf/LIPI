@@ -319,7 +319,7 @@ class Numbers extends Component {
                 justifyContent: 'center'
               }}
             >
-              <LottieView source={require('./2.json')} progress={showAnim} />
+              <LottieView source={require('./2.json')} progress={showAnim}  style={{ height: 80, width: 80}} />
             </View>
             <View style={{ height: 60, width: 60 }} />
             <View style={{ height: 60, width: 60 }} />
