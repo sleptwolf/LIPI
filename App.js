@@ -60,7 +60,7 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Barakhari',
+    initialRouteName: 'Letters',
     defaultNavigationOptions: {
       header: null
     }

@@ -9,7 +9,8 @@ import {
   Modal,
   Dimensions,
   Animated,
-  Easing
+  Easing,
+  ViewPagerAndroid
 } from 'react-native';
 import Header from './Header';
 import LottieView from 'lottie-react-native';
@@ -175,118 +176,144 @@ class Vowels extends React.Component {
             style={{ height: '100%', width: '100%' }}
           />
         </View>
-        <View
+        <ViewPagerAndroid
           style={{
             flex: 3,
             paddingVertical: 10,
-            backgroundColor: 'rgba(52, 52, 52, 0.8)'
+            backgroundColor: 'rgba(52, 52, 52, 0.8)',
+            // backgroundColor: 'red',
+            // borderWidth: 1,
+            justifyContent: 'center',
+            flexDirection: 'row',
+            width: '100%'
           }}
+          initialPage={0}
+          pageMargin={5}
         >
           <View
-            style={{
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 30,
-              width: '95%',
-              alignSelf: 'center',
-              height: '90%'
-            }}
+            style={{ borderRadius: 40, padding: 10, backgroundColor: 'white' }}
+            key='1'
           >
             <View
               style={{
-                height: '30%',
-                width: '95%',
-                flexDirection: 'row'
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+                width: '90%'
               }}
             >
               <View
                 style={{
-                  height: 100,
-                  width: 100,
-                  marginLeft: 20,
-                  justifyContent: 'center',
-                  alignContent: 'center'
+                  height: '30%',
+                  width: '90%',
+                  flexDirection: 'row'
                 }}
               >
+                <View
+                  style={{
+                    height: 100,
+                    width: 100,
+                    marginLeft: 20,
+                    justifyContent: 'center',
+                    alignContent: 'center'
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => this.play(audio[this.state.i])}
+                  >
+                    <Image
+                      source={data[this.state.selected]}
+                      style={{ resizeMode: 'stretch', height: 80, width: 80 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    height: 100,
+                    width: 180,
+                    marginLeft: 20,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Image
+                    source={word[this.state.selected]}
+                    style={{
+                      resizeMode: 'stretch',
+                      height: 40,
+                      width: 100,
+                      marginTop: 5
+                    }}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  height: '55%',
+                  width: '90%'
+                }}
+              >
+                <LottieView
+                  source={require('./blast.json')}
+                  progress={sad}
+                  style={{
+                    width: 250,
+                    height: 200,
+                    position: 'absolute',
+                    alignSelf: 'center',
+                    top: -15
+                  }}
+                />
                 <TouchableOpacity
                   onPress={() => this.play(audio[this.state.i])}
                 >
-                  <Image
-                    source={data[this.state.selected]}
-                    style={{ resizeMode: 'stretch', height: 80, width: 80 }}
+                  <Animated.Image
+                    source={image[this.state.selected]}
+                    style={{
+                      resizeMode: 'stretch',
+                      height: 150,
+                      width: 150,
+                      alignSelf: 'center',
+                      opacity
+                    }}
                   />
                 </TouchableOpacity>
               </View>
-              <View
-                style={{
-                  height: 100,
-                  width: 180,
-                  marginLeft: 20,
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <Image
-                  source={word[this.state.selected]}
+
+              <TouchableOpacity onPress={() => this.showModal(false, 0)}>
+                <View
                   style={{
-                    resizeMode: 'stretch',
-                    height: 40,
-                    width: 100,
-                    marginTop: 5
+                    height: 30,
+                    width: 30,
+                    backgroundColor: 'red',
+                    borderRadius: 90,
+                    justifyContent: 'center'
                   }}
-                />
-              </View>
-            </View>
-            <View
-              style={{
-                height: '55%',
-                width: '95%'
-              }}
-            >
-              <LottieView
-                source={require('./blast.json')}
-                progress={sad}
-                style={{
-                  width: 250,
-                  height: 200,
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  top: -15
-                }}
-              />
-              <TouchableOpacity onPress={() => this.play(audio[this.state.i])}>
-                <Animated.Image
-                  source={image[this.state.selected]}
-                  style={{
-                    resizeMode: 'stretch',
-                    height: 150,
-                    width: 150,
-                    alignSelf: 'center',
-                    opacity
-                  }}
-                />
+                >
+                  <Text
+                    style={{
+                      color: 'white',
+                      textAlign: 'center',
+                      fontSize: 30
+                    }}
+                  >
+                    X
+                  </Text>
+                </View>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.showModal(false, 0)}>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  backgroundColor: 'red',
-                  borderRadius: 90,
-                  justifyContent: 'center'
-                }}
-              >
-                <Text
-                  style={{ color: 'white', textAlign: 'center', fontSize: 30 }}
-                >
-                  X
-                </Text>
-              </View>
-            </TouchableOpacity>
           </View>
-        </View>
+          <View
+            style={{ borderRadius: 40, padding: 10, backgroundColor: 'white' }}
+            key='2'
+          >
+            <LottieView
+              source={require('./comp1.json')}
+              style={{ height: 80, width: 80 }}
+              autoPlay
+            />
+          </View>
+        </ViewPagerAndroid>
         <View
           style={{
             flex: 1,
