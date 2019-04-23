@@ -14,7 +14,11 @@ import {
   Animals,
   Body,
   Colors,
-  Family
+  Color,
+  Family,
+  Rhymes,
+  Quiz,
+  QuizPage
 } from './app/components';
 
 const AppNavigator = createStackNavigator(
@@ -55,12 +59,24 @@ const AppNavigator = createStackNavigator(
     Colors: {
       screen: Colors
     },
+    Color: {
+      screen: Color
+    },
     Family: {
       screen: Family
+    },
+    Rhymes: {
+      screen: Rhymes
+    },
+    Quiz: {
+      screen: Quiz
+    },
+    QuizPage: {
+      screen: QuizPage
     }
   },
   {
-    initialRouteName: 'Letters',
+    initialRouteName: 'Splash',
     defaultNavigationOptions: {
       header: null
     }

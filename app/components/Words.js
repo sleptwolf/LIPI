@@ -81,7 +81,7 @@ class Words extends React.Component {
           </Animated.View>
           <Animated.View style={{ right: move }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Colors')}
+              onPress={() => this.props.navigation.navigate('Color')}
             >
               <Image
                 source={require('../assets/buttons/colors.png')}
